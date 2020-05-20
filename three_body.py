@@ -4,7 +4,7 @@ from numpy.linalg import norm
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 
-TIMESTEP = 0.001 # Time in seconds per timestep.
+TIMESTEP = 0.01 # Time in seconds per timestep.
 G = 1 # Approximation to see how it works.
 SECONDS = 10
 
@@ -29,8 +29,11 @@ def step(state, masses, timestep):
     r20 = pos[0] - pos[2]
 
     a0 = masses[1] * r01 / (norm(r01)**3) + masses[2] * (-r20) / (norm(r20)**3)
+    a0 *= G
     a1 = masses[0] * (-r01) / (norm(r01)**3) + masses[2] * r12 / (norm(r12)**3)
+    a1 *= G
     a2 = masses[0] * r20 / (norm(r20)**3) + masses[1] * (-r12) / (norm(r12)**3)
+    a2 *= G
 
     accel = np.array([a0, a1, a2])
 
@@ -40,16 +43,16 @@ def step(state, masses, timestep):
     return new_state
 
 def init():
-    ax.set_xlim(10, 10)
-    ax.set_ylim(-10, 10)
+    plt.xlim(2, 2)
+    plt.ylim(-2, 2)
 
 '''
 Update updates the visuals after a single step.
 '''
 def update(state):
     plt.clf()
-    ax.set_xlim(-2, 2)
-    ax.set_ylim(-2, 2)
+    plt.xlim(-2, 2)
+    plt.ylim(-2, 2)
     f = plt.scatter(state[0, :, 0], state[0, :, 1], c='green')
     return f
 
@@ -70,5 +73,5 @@ if __name__ == '__main__':
     fig, ax = plt.subplots()
     ln = plt.scatter([], [])
 
-    ani = FuncAnimation(fig, update, frames=history, blit=False, interval=1)
+    ani = FuncAnimation(fig, update, frames=history, blit=False, interval=50)
     plt.show()
