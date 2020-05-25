@@ -3,10 +3,11 @@ import numpy as np
 from numpy.linalg import norm
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
+import time
 
-TIMESTEP = 0.01 # Time in seconds per timestep.
-G = 1 # Approximation to see how it works.
-SECONDS = 10
+TIMESTEP = 0.00001 # Time in seconds per timestep.
+G = 0.1 # Approximation to see how it works.
+SECONDS = 30
 
 '''
 Just steps through a single timestep.
@@ -58,20 +59,28 @@ def update(state):
 
 if __name__ == '__main__':
 
-    masses = [1, 2, 4]
+    masses = [1, 1, 1]
 
-    pos = [[0, 0], [1, 0], [1, 1]]
-    vel = [[1, 0], [1, 1], [0, 0]]
+    pos = np.random.random((3,2))
+    vel = np.random.random((3,2))
     state = np.array([pos, vel]).astype('float64')
 
     history = []
+
+    start = time.time()
 
     for i in range(int(SECONDS / TIMESTEP)):
         state = step(state, masses, TIMESTEP)
         history.append(state)
 
-    fig, ax = plt.subplots()
-    ln = plt.scatter([], [])
+    history = np.array(history)
 
-    ani = FuncAnimation(fig, update, frames=history, blit=False, interval=50)
+    print(time.time() - start)
+
+    fig, ax = plt.subplots()
+
+    plt.plot(history[:,0,0,0], history[:,0,0,1])
+    plt.plot(history[:,0,1,0], history[:,0,1,1])
+    plt.plot(history[:,0,2,0], history[:,0,2,1])
+    #ani = FuncAnimation(fig, update, frames=history, blit=False, interval=50)
     plt.show()
