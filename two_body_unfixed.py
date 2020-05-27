@@ -30,16 +30,17 @@ def step(state, masses, timestep):
     return new_state
 
 def init():
-    plt.xlim(2, 2)
-    plt.ylim(-2, 2)
+    pass
+    #plt.xlim(2, 2)
+    #plt.ylim(-2, 2)
 
 '''
 Update updates the visuals after a single step.
 '''
 def update(state):
     plt.clf()
-    plt.xlim(-2, 2)
-    plt.ylim(-2, 2)
+    #plt.xlim(-2, 2)
+    #plt.ylim(-2, 2)
     f = plt.scatter(state[0, :, 0], state[0, :, 1], c='green')
     return f
 
@@ -64,11 +65,11 @@ if __name__ == '__main__':
     print(time.time() - start)
 
     fig, ax = plt.subplots()
-    plt.xlim(-2, 2)
-    plt.ylim(-2, 2)
+    #plt.xlim(-2, 2)
+    #plt.ylim(-2, 2)
 
-    # plt.plot(history[:,0,0,0], history[:,0,0,1])
-    # plt.plot(history[:,0,1,0], history[:,0,1,1])
+    #plt.plot(history[:,0,0,0], history[:,0,0,1])
+    #plt.plot(history[:,0,1,0], history[:,0,1,1])
 
     rel_x = history[:,0,1,0] - history[:,0,0,0]
     rel_y = history[:,0,1,1] - history[:,0,0,1]
@@ -82,6 +83,6 @@ if __name__ == '__main__':
 
     plt.plot(rel_1[:,0], rel_1[:,1])
     plt.plot(rel_2[:,0], rel_2[:,1])
-    '''
+    #'''
 
     plt.show()
